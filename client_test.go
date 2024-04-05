@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -16,7 +15,7 @@ import (
 
 	"github.com/prometheus/prometheus/prompb"
 
-	"github.com/castai/promwrite"
+	"github.com/eryajf/promwrite"
 )
 
 func TestClient(t *testing.T) {
@@ -116,7 +115,7 @@ func TestClient(t *testing.T) {
 		receivedWriteRequest := make(chan *prompb.WriteRequest, 1)
 		receivedHeaders := make(chan http.Header, 1)
 		srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-			b, _ := ioutil.ReadAll(req.Body)
+			b, _ := io.ReadAll(req.Body)
 			parsed, err := parseWriteRequest(b)
 			r.NoError(err)
 			receivedWriteRequest <- parsed

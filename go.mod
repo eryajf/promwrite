@@ -1,4 +1,4 @@
-module github.com/castai/promwrite
+module github.com/eryajf/promwrite
 
 go 1.18
 
